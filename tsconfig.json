@@ -10,8 +10,9 @@
     "skipLibCheck": true,
     "outDir": "dist/",
     "forceConsistentCasingInFileNames": true,
+    "composite": true,
     "declaration": true
   },
   "include": ["src/**/*"],
-  "exclude": ["src/bin/*.ts"]
+  "references": []
 }

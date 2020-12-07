@@ -16,6 +16,7 @@
   "dependencies": {
     "@ts-morph/bootstrap": "^0.8.0",
     "@types/node": "^14.14.10",
-    "ts-morph": "^9.1.0"
+    "ts-morph": "^9.1.0",
+    "ts-node": "^9.1.0"
   }
 }

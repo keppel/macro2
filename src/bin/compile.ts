@@ -1,18 +1,17 @@
-#!/usr/bin/ts-node
+#!/usr/bin/env ts-node-script
 import {
+  createWrappedNode,
   VariableStatement,
   CallExpression,
-  Node,
   Project,
   ts,
   Identifier,
+  Node,
 } from 'ts-morph'
-import path from 'path'
 
 let project = new Project({ tsConfigFilePath: 'tsconfig.json' })
 
-let program = project.getProgram()
-let tc = project.getTypeChecker()
+let typeChecker = project.getTypeChecker()
 
 function getMacroImportIdentifiers() {
   let macroIdents: Array<Identifier> = []
@@ -100,8 +99,20 @@ function expandMacroCallExpression(
   callExpression: CallExpression,
   macroFn: Function
 ) {
-  let node = macroFn({ callExpression, ts })
-  callExpression.transform(() => node)
+  let wrappedCallExpression = createWrappedNode(callExpression.compilerNode, {
+    typeChecker: typeChecker.compilerObject,
+  })
+
+  let node: Node<ts.Node> | string | undefined = macroFn({
+    callExpression: wrappedCallExpression,
+    ts,
+    typeChecker,
+  })
+  if (typeof node === 'string') {
+    callExpression.replaceWithText(node)
+  } else if (node) {
+    callExpression.transform(() => node as any)
+  }
 }
 
 let macroIdents = getMacroImportIdentifiers()

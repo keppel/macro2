@@ -1,9 +1,9 @@
-import { ts, Node } from 'ts-morph'
+import { ts, Node, TypeChecker, CallExpression } from 'ts-morph'
 type MacroFn = (ctx: {
-  ts: typeof ts
-  callExpression: Node<ts.CallExpression>
-}) => void
+  callExpression: CallExpression<ts.CallExpression>
+  typeChecker: TypeChecker
+}) => string | undefined
 
-export function Macro(fn: MacroFn): MacroFn {
+export function Macro<F extends MacroFn>(fn: F): F {
   return fn
 }

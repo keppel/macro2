@@ -1,22 +1,26 @@
 {
   "name": "macro2",
   "version": "0.1.0",
-  "description": "",
+  "description": "TypeScript compiler wrapper with macro support",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "ts-node src/bin/compile.ts"
+    "prepublish": "tsc"
   },
   "bin": {
     "macro2": "dist/bin/compile.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["typescript", "macros"],
+  "author": "Judd Keppel <kepzorz@gmail.com>",
   "license": "ISC",
   "dependencies": {
     "@ts-morph/bootstrap": "^0.8.0",
     "@types/node": "^14.14.10",
     "ts-morph": "^9.1.0",
     "ts-node": "^9.1.0"
+  },
+  "devDependencies": {
+    "typescript": "^4.1.2"
   }
 }
